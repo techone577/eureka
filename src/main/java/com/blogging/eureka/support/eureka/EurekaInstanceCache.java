@@ -13,10 +13,16 @@ import java.util.List;
  * @author techoneduan
  * @date 2018/12/17
  */
-public class EurekaServerApplication {
+public class EurekaInstanceCache {
+
+    private static List<ServiceInstance> instanceList = null;
 
     //TODO 对实例做缓存
-    public static List<ServiceInstance> instancesInfo () {
+
+    /**
+     * 每当有服务上线时，推送给所有客户端，更新客户端本地缓存
+     */
+    private static List<ServiceInstance> instancesInfo () {
         RestTemplate restTemplate = new RestTemplate();
         Integer port = ApplicationContextCache.getPropertiesHolder().getPort();
         String restApi = "http://localhost:" + port + "/eureka/apps";
@@ -24,7 +30,11 @@ public class EurekaServerApplication {
         String application = JSONObject.parseObject(applications.getBody()).getJSONObject("applications").getString("application");
         application = application.replace("$", "port");
         application = application.replace("@enable", "enable");
-        List<ServiceInstance> instanceList = JsonUtil.toList(application, ServiceInstance.class);
+        instanceList = JsonUtil.toList(application, ServiceInstance.class);
         return instanceList;
+    }
+
+    public static List<ServiceInstance> getInstanceCache () {
+        return instancesInfo();
     }
 }

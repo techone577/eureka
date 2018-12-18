@@ -4,11 +4,21 @@ package com.blogging.eureka.model.entity;
  * @author techoneduan
  * @date 2018/12/17
  */
-public class NettyEntity {
+public class NettyReqEntity {
+
+    private String requestId;
 
     private String header;
 
     private Object params;
+
+    public String getRequestId () {
+        return requestId;
+    }
+
+    public void setRequestId (String requestId) {
+        this.requestId = requestId;
+    }
 
     public String getHeader () {
         return header;

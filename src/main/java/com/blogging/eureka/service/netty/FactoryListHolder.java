@@ -1,4 +1,4 @@
-package com.blogging.eureka.service;
+package com.blogging.eureka.service.netty;
 
 import com.blogging.eureka.service.netty.AbstractNettyService;
 import com.blogging.eureka.support.pattern.strategy.FactoryList;

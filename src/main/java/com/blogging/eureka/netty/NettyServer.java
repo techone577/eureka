@@ -1,6 +1,8 @@
 package com.blogging.eureka.netty;
 
 import io.netty.bootstrap.ServerBootstrap;
+import io.netty.buffer.ByteBuf;
+import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelOption;
@@ -16,7 +18,7 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
 public class NettyServer {
     private static final int port = 1002;
 
-    public static void run()throws Exception{
+    public static void run () throws Exception {
         EventLoopGroup bossGroup = new NioEventLoopGroup(); // (1)
         EventLoopGroup workerGroup = new NioEventLoopGroup();
         try {
@@ -25,7 +27,7 @@ public class NettyServer {
                     .channel(NioServerSocketChannel.class) // (3)
                     .childHandler(new ChannelInitializer<SocketChannel>() { // (4)
                         @Override
-                        public void initChannel(SocketChannel ch) throws Exception {
+                        public void initChannel (SocketChannel ch) throws Exception {
                             ch.pipeline().addLast(new NettyServerHandler());
                         }
                     })
@@ -42,5 +44,13 @@ public class NettyServer {
             workerGroup.shutdownGracefully();
             bossGroup.shutdownGracefully();
         }
+    }
+
+    public static ByteBuf getByteBuf (String msg) {
+        ByteBuf MSG;
+        byte[] req = msg.getBytes();
+        MSG = Unpooled.buffer(req.length);
+        MSG.writeBytes(req);
+        return MSG;
     }
 }

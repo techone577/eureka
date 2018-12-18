@@ -1,14 +1,16 @@
 package com.blogging.eureka.netty;
 
-import com.blogging.eureka.model.entity.NettyEntity;
+import com.blogging.eureka.model.entity.NettyReqEntity;
 import com.blogging.eureka.service.netty.AbstractNettyService;
 import com.blogging.eureka.support.pattern.strategy.FactoryList;
 import com.blogging.eureka.support.spring.ApplicationContextCache;
 import com.blogging.eureka.support.utils.JsonUtil;
 import io.netty.buffer.ByteBuf;
-import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
+import io.netty.channel.group.ChannelGroup;
+import io.netty.channel.group.DefaultChannelGroup;
+import io.netty.util.concurrent.GlobalEventExecutor;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,23 +29,23 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
     private FactoryList<AbstractNettyService, String> nettyService;
 
     @Override
+    public void channelActive (ChannelHandlerContext ctx) throws Exception {
+        NettyChannelGroup.add(ctx.channel());
+    }
+
+    @Override
     public void channelRead (ChannelHandlerContext ctx, Object msg) throws Exception {
         String body = readByteBuf(msg);
         if (StringUtils.isBlank(body)) {
             LOG.info("netty request为空");
             return;
         }
-        NettyEntity nettyEntity = JsonUtil.toBean(body, NettyEntity.class);
-        if (StringUtils.isBlank(nettyEntity.getHeader())) {
-            LOG.info("netty request header为空:{}", nettyEntity);
+        NettyReqEntity nettyReqEntity = JsonUtil.toBean(body, NettyReqEntity.class);
+        if (StringUtils.isBlank(nettyReqEntity.getHeader())) {
+            LOG.info("netty request header为空:{}", nettyReqEntity);
             return;
         }
-        ApplicationContextCache.getFactoryListHolder().getNettyService().getBean(nettyEntity.getHeader()).dealRequest(nettyEntity);
-
-        byte[] bytes = "repeat".getBytes();
-        ByteBuf re = Unpooled.buffer(bytes.length);
-        re.writeBytes(bytes);
-        ctx.writeAndFlush(re);
+        ApplicationContextCache.getFactoryListHolder().getNettyService().getBean(nettyReqEntity.getHeader()).dealRequest(nettyReqEntity, ctx);
     }
 
     @Override

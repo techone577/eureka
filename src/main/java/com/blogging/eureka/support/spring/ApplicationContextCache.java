@@ -1,7 +1,7 @@
 package com.blogging.eureka.support.spring;
 
 import com.blogging.eureka.model.Constants.PropertiesHolder;
-import com.blogging.eureka.service.FactoryListHolder;
+import com.blogging.eureka.service.netty.FactoryListHolder;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
