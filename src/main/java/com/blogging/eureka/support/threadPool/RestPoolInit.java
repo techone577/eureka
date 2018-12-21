@@ -11,6 +11,8 @@ import java.util.concurrent.TimeUnit;
 /**
  * @author techoneduan
  * @date 2018/12/18
+ *
+ * rest 线程池
  */
 
 @Repository

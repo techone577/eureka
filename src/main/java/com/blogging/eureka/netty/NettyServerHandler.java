@@ -19,6 +19,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 /**
  * @author techoneduan
  * @date 2018/12/15
+ *
+ * netty 服务段处理器
  */
 
 public class NettyServerHandler extends ChannelInboundHandlerAdapter {

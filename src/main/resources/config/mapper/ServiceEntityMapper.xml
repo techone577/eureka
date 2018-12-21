@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.blogging.eureka.persistence.ServiceEntityMapper">
+    <resultMap id="BaseResultMap" type="com.blogging.eureka.model.entity.ServiceEntity">
+        <result column="client_name" property="clientName"/>
+        <result column="service_name" property="serviceName"/>
+        <result column="instance_name" property="instanceName"/>
+        <result column="ip_addr" property="ipAddr"/>
+        <result column="port" property="port"/>
+        <result column="route_addr" property="routeAddr"/>
+        <result column="method" property="method"/>
+        <result column="param" property="param"/>
+        <result column="return_value" property="returnValue"/>
+        <result column="enable" property="enable"/>
+        <result column="add_time" property="addTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="description" property="description"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, client_name, service_name, instance_name, ip_addr, port, route_addr, method, param, return_value,
+    enable, description, add_time, update_time
+  </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
+        select
+        <include refid="Base_Column_List"/>
+        from service
+        where id = #{id}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from service
+    where id = #{id}
+  </delete>
+    <insert id="insert" parameterType="com.blogging.eureka.model.entity.ServiceEntity">
+    insert into service (id, client_name, service_name, 
+      instance_name, ip_addr, port, 
+      route_addr, method, param, return_value, enable, description,
+      add_time, update_time)
+    values (#{id}, #{clientName}, #{serviceName}, 
+      #{instanceName}, #{ipAddr}, #{port}, 
+      #{routeAddr}, #{method}, #{param}, #{returnValue}, #{enable},
+      #{description}, #{addTime}, #{updateTime})
+  </insert>
+    <insert id="insertSelective" parameterType="com.blogging.eureka.model.entity.ServiceEntity">
+        insert into service
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="clientName != null">
+                client_name,
+            </if>
+            <if test="serviceName != null">
+                service_name,
+            </if>
+            <if test="instanceName != null">
+                instance_name,
+            </if>
+            <if test="ipAddr != null">
+                ip_addr,
+            </if>
+            <if test="port != null">
+                port,
+            </if>
+            <if test="routeAddr != null">
+                route_addr,
+            </if>
+            <if test="method != null">
+                method,
+            </if>
+            <if test="param != null">
+                param,
+            </if>
+            <if test="returnValue != null">
+                return_value,
+            </if>
+            <if test="enable != null">
+                enable,
+            </if>
+            <if test="description != null">
+                description,
+            </if>
+            <if test="addTime != null">
+                add_time,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id},
+            </if>
+            <if test="clientName != null">
+                #{clientName},
+            </if>
+            <if test="serviceName != null">
+                #{serviceName},
+            </if>
+            <if test="instanceName != null">
+                #{instanceName},
+            </if>
+            <if test="ipAddr != null">
+                #{ipAddr},
+            </if>
+            <if test="port != null">
+                #{port},
+            </if>
+            <if test="routeAddr != null">
+                #{routeAddr},
+            </if>
+            <if test="method != null">
+                #{method},
+            </if>
+            <if test="param != null">
+                #{param},
+            </if>
+            <if test="enable != null">
+                #{enable},
+            </if>
+            <if test="returnValue != null">
+                #{retuenValue},
+            </if>
+            <if test="addTime != null">
+                #{addTime},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.blogging.eureka.model.entity.ServiceEntity">
+        update service
+        <set>
+            <if test="clientName != null">
+                client_name = #{clientName},
+            </if>
+            <if test="serviceName != null">
+                service_name = #{serviceName},
+            </if>
+            <if test="instanceName != null">
+                instance_name = #{instanceName},
+            </if>
+            <if test="ipAddr != null">
+                ip_addr = #{ipAddr},
+            </if>
+            <if test="port != null">
+                port = #{port},
+            </if>
+            <if test="routeAddr != null">
+                route_addr = #{routeAddr},
+            </if>
+            <if test="method != null">
+                method = #{method},
+            </if>
+            <if test="param != null">
+                param = #{param},
+            </if>
+            <if test="returnValue != null">
+                return_value = #{returnValue},
+            </if>
+            <if test="enable != null">
+                enable = #{enable},
+            </if>
+            <if test="description != null">
+                description = #{description},
+            </if>
+            <if test="addTime != null">
+                add_time = #{addTime},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.blogging.eureka.model.entity.ServiceEntity">
+    update service
+    set client_name = #{clientName},
+      service_name = #{serviceName},
+      instance_name = #{instanceName},
+      ip_addr = #{ipAddr},
+      port = #{port},
+      route_addr = #{routeAddr},
+      method = #{method},
+      param = #{param},
+      return_value = #{returnValue},
+      enable = #{enable},
+      description = #{description},
+      add_time = #{addTime},
+      update_time = #{updateTime}
+    where id = #{id}
+  </update>
+    <select id="selectAll" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from service
+    </select>
+
+    <select id="selectByName" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from service
+        where enable = 1
+        <if test="subServiceNameList != null">
+            AND service_name in
+            <foreach collection="subServiceNameList" item="item" open="(" close=")" separator=",">
+                #{item}
+            </foreach>
+        </if>
+
+    </select>
+
+
+</mapper>

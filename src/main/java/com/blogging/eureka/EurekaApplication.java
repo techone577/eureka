@@ -1,6 +1,7 @@
 package com.blogging.eureka;
 
 import com.blogging.eureka.netty.NettyServer;
+import org.mybatis.spring.annotation.MapperScan;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
@@ -14,6 +15,7 @@ import org.springframework.web.client.RestTemplate;
 @SpringBootApplication
 @EnableEurekaServer
 @EnableZuulProxy
+@MapperScan(basePackages = "com.blogging.eureka.persistence")
 public class EurekaApplication {
     private static final Logger LOG = LoggerFactory.getLogger(EurekaApplication.class);
 

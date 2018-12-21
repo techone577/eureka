@@ -1,6 +1,7 @@
 package com.blogging.eureka.support.eureka;
 
 import com.alibaba.fastjson.JSONObject;
+import com.blogging.eureka.model.eureka.RegistryInfo;
 import com.blogging.eureka.model.eureka.ServiceInstance;
 import com.blogging.eureka.support.spring.ApplicationContextCache;
 import com.blogging.eureka.support.utils.JsonUtil;
@@ -15,14 +16,13 @@ import java.util.List;
  */
 public class EurekaInstanceCache {
 
-    private static List<ServiceInstance> instanceList = null;
-
     //TODO 对实例做缓存
 
     /**
      * 每当有服务上线时，推送给所有客户端，更新客户端本地缓存
      */
     private static List<ServiceInstance> instancesInfo () {
+        List<ServiceInstance> instanceList = null;
         RestTemplate restTemplate = new RestTemplate();
         Integer port = ApplicationContextCache.getPropertiesHolder().getPort();
         String restApi = "http://localhost:" + port + "/eureka/apps";

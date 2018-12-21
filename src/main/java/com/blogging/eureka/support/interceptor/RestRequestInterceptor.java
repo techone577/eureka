@@ -11,6 +11,8 @@ import java.io.IOException;
 /**
  * @author techoneduan
  * @date 2018/12/17
+ *
+ * 构造请求头
  */
 public class RestRequestInterceptor implements ClientHttpRequestInterceptor {
     @Override

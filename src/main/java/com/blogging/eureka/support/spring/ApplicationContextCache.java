@@ -2,6 +2,7 @@ package com.blogging.eureka.support.spring;
 
 import com.blogging.eureka.model.Constants.PropertiesHolder;
 import com.blogging.eureka.service.netty.FactoryListHolder;
+import com.blogging.eureka.support.utils.RedisUtil;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -31,9 +32,15 @@ public class ApplicationContextCache implements ApplicationContextAware {
         return null;
     }
 
-    public static FactoryListHolder getFactoryListHolder(){
+    public static FactoryListHolder getFactoryListHolder () {
         if (null != applicationContext)
             return (FactoryListHolder) applicationContext.getBean("factoryListHolder");
+        return null;
+    }
+
+    public static RedisUtil getRedisUtil () {
+        if (null != applicationContext)
+            return (RedisUtil) applicationContext.getBean("redisUtil");
         return null;
     }
 }
