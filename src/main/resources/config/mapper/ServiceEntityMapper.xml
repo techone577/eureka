@@ -207,5 +207,27 @@
 
     </select>
 
+    <select id="selectByParams" resultMap="BaseResultMap" parameterType="com.blogging.eureka.model.dto.ServiceInfoDTO">
+        select
+        <include refid="Base_Column_List"/>
+        from service
+        where enable = 1
+        <if test="serviceName != null and serviceName != ''">
+            and service_name = #{serviceName}
+        </if>
+        <if test="ipAddr != null and ipAddr != ''">
+            and ip_addr = #{ipAddr}
+        </if>
+        <if test="port != null">
+            and port = #{port}
+        </if>
+        <if test="routeAddr != null and routeAddr != ''">
+            and route_addr = #{routeAddr}
+        </if>
+        <if test="method != null and method != ''">
+            and method = #{method}
+        </if>
+    </select>
+
 
 </mapper>

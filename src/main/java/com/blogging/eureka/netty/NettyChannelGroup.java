@@ -29,7 +29,7 @@ import java.util.stream.Collectors;
 /**
  * @author techoneduan
  * @date 2018/12/18
- *
+ * <p>
  * 缓存channel，实现订阅发布模式
  */
 @Component
@@ -69,6 +69,7 @@ public class NettyChannelGroup {
 
     /**
      * 拉取订阅的服务列表
+     *
      * @param c
      * @param header
      * @param requestId
@@ -77,8 +78,10 @@ public class NettyChannelGroup {
         String subInfo = redisUtil.getString(c.remoteAddress().toString());
         if (StringUtils.isBlank(subInfo)) {
             subInfo = pullSubServiceFromDB(c.remoteAddress().toString());
-            if (StringUtils.isBlank(subInfo))
+            if (StringUtils.isBlank(subInfo)) {
+                LOG.info("拉取服务列表为空，是否未注册消费者,ipAddr:{}", c.remoteAddress().toString());
                 return;
+            }
             redisUtil.doCache(c.remoteAddress().toString(), subInfo);
         }
         List<String> subInfoList = JsonUtil.toBean(subInfo, List.class);

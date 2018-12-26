@@ -40,6 +40,10 @@ public class BSPService {
     }
 
     public void addSubInfo (SubInfoEntity subInfoEntity) {
-        subInfoEntityMapper.insertSelective(subInfoEntity);
+        int count = subInfoEntityMapper.selectCountByIp(subInfoEntity.getIpAddr());
+        if (count > 0)
+            subInfoEntityMapper.updateByIp(subInfoEntity);
+        else
+            subInfoEntityMapper.insertSelective(subInfoEntity);
     }
 }

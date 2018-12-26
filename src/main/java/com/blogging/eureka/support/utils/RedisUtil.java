@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
 
+import java.util.concurrent.TimeUnit;
+
 /**
  * @author techoneduan
  * @date 2018/12/20
@@ -36,5 +38,17 @@ public class RedisUtil {
             LOG.info("redis读取异常:{}", e);
         }
         return res;
+    }
+
+    public void remove (String key) {
+        if (redisTemplate.hasKey(key)) {
+            redisTemplate.delete(key);
+        }
+    }
+
+    public void expire (String key, Integer num, TimeUnit unit) {
+        if (redisTemplate.hasKey(key)) {
+            redisTemplate.expire(key, num, unit);
+        }
     }
 }

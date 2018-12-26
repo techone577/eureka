@@ -1,88 +1,120 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.blogging.eureka.persistence.SubInfoEntityMapper" >
-  <resultMap id="BaseResultMap" type="com.blogging.eureka.model.entity.SubInfoEntity" >
-    <id column="id" property="id"  />
-    <result column="remote_addr" property="remoteAddr"  />
-    <result column="client_name" property="clientName"  />
-    <result column="sub_services" property="subServices"  />
-  </resultMap>
-  <sql id="Base_Column_List" >
-    id, remote_addr, client_name, sub_services
+<mapper namespace="com.blogging.eureka.persistence.SubInfoEntityMapper">
+    <resultMap id="BaseResultMap" type="com.blogging.eureka.model.entity.SubInfoEntity">
+        <id column="id" property="id"/>
+        <result column="remote_addr" property="remoteAddr"/>
+        <result column="client_name" property="clientName"/>
+        <result column="sub_services" property="subServices"/>
+        <result column="ip_addr" property="ipAddr"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, remote_addr, client_name, sub_services, ip_addr
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
-    select
-    <include refid="Base_Column_List" />
-    from sub_info
-    where id = #{id}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
+        select
+        <include refid="Base_Column_List"/>
+        from sub_info
+        where id = #{id}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from sub_info
     where id = #{id}
   </delete>
-  <insert id="insert" parameterType="com.blogging.eureka.model.entity.SubInfoEntity" >
+    <insert id="insert" parameterType="com.blogging.eureka.model.entity.SubInfoEntity">
     insert into sub_info (id, remote_addr, client_name, 
-      sub_services)
+      sub_services, ip_addr)
     values (#{id}, #{remoteAddr}, #{clientName}, 
-      #{subServices})
+      #{subServices}, #{ipAddr})
   </insert>
-  <insert id="insertSelective" parameterType="com.blogging.eureka.model.entity.SubInfoEntity" >
-    insert into sub_info
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        id,
-      </if>
-      <if test="remoteAddr != null" >
-        remote_addr,
-      </if>
-      <if test="clientName != null" >
-        client_name,
-      </if>
-      <if test="subServices != null" >
-        sub_services,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        #{id},
-      </if>
-      <if test="remoteAddr != null" >
-        #{remoteAddr},
-      </if>
-      <if test="clientName != null" >
-        #{clientName},
-      </if>
-      <if test="subServices != null" >
-        #{subServices},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.blogging.eureka.model.entity.SubInfoEntity" >
-    update sub_info
-    <set >
-      <if test="remoteAddr != null" >
-        remote_addr = #{remoteAddr},
-      </if>
-      <if test="clientName != null" >
-        client_name = #{clientName},
-      </if>
-      <if test="subServices != null" >
-        sub_services = #{subServices},
-      </if>
-    </set>
-    where id = #{id}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.blogging.eureka.model.entity.SubInfoEntity" >
+    <insert id="insertSelective" parameterType="com.blogging.eureka.model.entity.SubInfoEntity">
+        insert into sub_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="remoteAddr != null">
+                remote_addr,
+            </if>
+            <if test="clientName != null">
+                client_name,
+            </if>
+            <if test="subServices != null">
+                sub_services,
+            </if>
+            <if test="ipAddr != null">
+                ip_addr,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id},
+            </if>
+            <if test="remoteAddr != null">
+                #{remoteAddr},
+            </if>
+            <if test="clientName != null">
+                #{clientName},
+            </if>
+            <if test="subServices != null">
+                #{subServices},
+            </if>
+            <if test="ipAddr != null">
+                #{ipAddr},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.blogging.eureka.model.entity.SubInfoEntity">
+        update sub_info
+        <set>
+            <if test="remoteAddr != null">
+                remote_addr = #{remoteAddr},
+            </if>
+            <if test="clientName != null">
+                client_name = #{clientName},
+            </if>
+            <if test="subServices != null">
+                sub_services = #{subServices},
+            </if>
+            <if test="ipAddr != null">
+                ip_addr = #{ipAddr},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.blogging.eureka.model.entity.SubInfoEntity">
     update sub_info
     set remote_addr = #{remoteAddr},
       client_name = #{clientName},
-      sub_services = #{subServices}
+      sub_services = #{subServices},
+      ip_addr = #{ipAddr}
     where id = #{id}
   </update>
-  <select id="selectByAddr" resultMap="BaseResultMap"  >
-    select
-    <include refid="Base_Column_List" />
-    from sub_info
-    where remote_addr = #{addr}
-  </select>
+    <select id="selectByAddr" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from sub_info
+        where remote_addr = #{addr}
+    </select>
+    <select id="selectCountByIp" resultType="java.lang.Integer" >
+        select count(*)
+        <include refid="Base_Column_List"/>
+        from sub_info
+        where ip_addr = #{ipAddr}
+    </select>
+    <update id="updateByIp" parameterType="com.blogging.eureka.model.entity.SubInfoEntity">
+        update sub_info
+        <set>
+            <if test="remoteAddr != null">
+                remote_addr = #{remoteAddr},
+            </if>
+            <if test="clientName != null">
+                client_name = #{clientName},
+            </if>
+            <if test="subServices != null">
+                sub_services = #{subServices},
+            </if>
+        </set>
+        where ip_addr = #{ipAddr}
+    </update>
 </mapper>

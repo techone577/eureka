@@ -16,5 +16,9 @@ public interface SubInfoEntityMapper {
 
     int updateByPrimaryKey (SubInfoEntity record);
 
-    SubInfoEntity selectByAddr(@Param("addr") String addr);
+    SubInfoEntity selectByAddr (@Param("addr") String addr);
+
+    int updateByIp (SubInfoEntity entity);
+
+    int selectCountByIp (@Param("ipAddr") String ipAddr);
 }

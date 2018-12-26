@@ -4,7 +4,7 @@ package com.blogging.eureka.model.dto;
  * @author techoneduan
  * @date 2018/12/20
  *
- * 推送给客户端的服务信息
+ * 推送给客户端的服务信息,queryDto
  */
 public class ServiceInfoDTO {
 

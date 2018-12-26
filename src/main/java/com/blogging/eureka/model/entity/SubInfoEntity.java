@@ -22,6 +22,11 @@ public class SubInfoEntity {
      */
     private String subServices;
 
+    /**
+     * 客户端ip地址
+     */
+    private String ipAddr;
+
     public Long getId() {
         return id;
     }
@@ -52,5 +57,13 @@ public class SubInfoEntity {
 
     public void setSubServices(String subServices) {
         this.subServices = subServices == null ? null : subServices.trim();
+    }
+
+    public String getIpAddr () {
+        return ipAddr;
+    }
+
+    public void setIpAddr (String ipAddr) {
+        this.ipAddr = ipAddr;
     }
 }
