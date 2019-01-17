@@ -43,6 +43,9 @@
     <insert id="insertSelective" parameterType="com.blogging.eureka.model.entity.ServiceEntity">
         insert into service
         <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
             <if test="clientName != null">
                 client_name,
             </if>
@@ -111,11 +114,14 @@
             <if test="param != null">
                 #{param},
             </if>
+            <if test="returnValue != null">
+                #{returnValue},
+            </if>
             <if test="enable != null">
                 #{enable},
             </if>
-            <if test="returnValue != null">
-                #{retuenValue},
+            <if test="description != null">
+                description,
             </if>
             <if test="addTime != null">
                 #{addTime},
