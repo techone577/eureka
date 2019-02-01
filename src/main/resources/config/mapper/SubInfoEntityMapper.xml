@@ -98,7 +98,6 @@
     </select>
     <select id="selectCountByIp" resultType="java.lang.Integer" >
         select count(*)
-        <include refid="Base_Column_List"/>
         from sub_info
         where ip_addr = #{ipAddr}
     </select>

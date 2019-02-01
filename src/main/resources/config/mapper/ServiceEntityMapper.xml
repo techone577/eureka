@@ -121,7 +121,7 @@
                 #{enable},
             </if>
             <if test="description != null">
-                description,
+                #{description},
             </if>
             <if test="addTime != null">
                 #{addTime},
