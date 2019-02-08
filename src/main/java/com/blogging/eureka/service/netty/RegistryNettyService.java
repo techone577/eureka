@@ -65,12 +65,14 @@ public class RegistryNettyService extends AbstractNettyService {
          * 注册信息
          */
         RegistryInfo registryInfo = JsonUtil.toBean(obj, RegistryInfo.class);
-        List<ServiceEntity> serviceEntities = registryInfo.getServiceConfigs().stream().map(item -> {
-            ServiceEntity entity = buildServiceEntity(registryInfo, item);
-            return entity;
-        }).collect(Collectors.toList());
-        serviceEntities = serviceEntities.stream().filter(item -> null != item).collect(Collectors.toList());
-        bspService.addService(serviceEntities);
+        if (null != registryInfo.getServiceConfigs()) {
+            List<ServiceEntity> serviceEntities = registryInfo.getServiceConfigs().stream().map(item -> {
+                ServiceEntity entity = buildServiceEntity(registryInfo, item);
+                return entity;
+            }).collect(Collectors.toList());
+            serviceEntities = serviceEntities.stream().filter(item -> null != item).collect(Collectors.toList());
+            bspService.addService(serviceEntities);
+        }
         /**
          * 订阅信息
          */
